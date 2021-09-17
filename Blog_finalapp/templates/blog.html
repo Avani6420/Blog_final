@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5 mb-5">
+        <a href="add_blog" class="btn btn-success btn-lg active" role="button" aria-disabled="true">Add Blog</a>
+        <h3 class="text-center mt-3">Read The Best Blog in Town</h3>
+        <div class="row">
+                {% for fm in form %}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 18rem;">
+                      <img class="card-img-top" src="{{ fm.img.url }}" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ fm.Title }}</h5>
+                          <p class="card-text text-muted h6">{{ fm.author }} | {{ fm.created_on}} </p>
+                        <p class="card-text">{{ fm.content }}</p>
+                        <a href="/blog-detail/{{ fm.id }}" class="btn btn-primary">View Blog</a>
+                        <a href="update_blog/{{ fm.id }}" id="{{ fm.id }}" class="btn btn-success btn-sm active" role="button" aria-disabled="true">Update</a>
+                      </div>
+
+                    </div>
+                </div>
+                {% endfor%}
+
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5 mb-5">
+        <h3 class="text-center mt-3">Read The Blog</h3>
+        <div class="row">
+                {% for de in detail %}
+                <div class="col-lg-4">
+                    <div class="card" style="width: 50rem;">
+                      <img class="card-img-top" src="{{ de.img.url }}" alt="Card image cap">
+                      <div class="card-body">
+                        <h5 class="card-title">{{ de.Title }}</h5>
+                          <p class="card-text text-muted h6">{{ de.author }} | {{ de.created_on}} </p>
+                        <p class="card-text">{{ de.content }}</p>
+                        <a href="/Blog" class="btn btn-primary">Back</a>
+                         <div class="container mt-2">
+                             <div class="fb-comments" data-href="http://127.0.0.1:8000/blog-detail/{{de.id}}" data-width="" data-numposts="5"></div>
+                             <div class="fb-like" data-href="http://127.0.0.1:8000/Blog" data-width="" data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
+                             <form action="{% url 'like_post' de.pk %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" name="post_id" value="{{ de.id }}" class="btn btn-success btn-sm">Like</button>- {{ total_likes }} Likes
+                        </form>
+                         </div>
+                      </div>
+                    </div>
+                </div>
+                {% endfor%}
+
+        </div>
+    </div>
+
+{% endblock %}

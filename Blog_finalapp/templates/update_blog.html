@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-3 mb-5">
+    <div class="row mt-5 mb-5">
+        <div class="col-lg-6 shadow  p-4">
+            <h3>Update Blog</h3>
+            <form method="POST" enctype="multipart/form-data" action="/update_blog/{{from.id}}">
+            {% csrf_token %}
+                  <div class="form-group">
+                    <h6>Title</h6>
+                    <input type="text" name="e_id"  value={{form.Title}}>
+                  </div>
+                  <div class="form-group">
+                    <h6>Slug</h6>
+                    <input type="text" name="slug"  value={{form.slug}}>
+                  </div>
+                      <div class="form-group">
+                        <h6>Image</h6>
+                        <input class="form-control" type="text" name="image_name" value="{{form.img.url}}">
+                        <input class="form-control" type="file" name="image_document">
+
+                      </div>
+                  <div class="form-group">
+                    <h6>content</h6>
+                    <p><input type="text" name="content"  value={{form.content}}></p>
+                  </div>
+                  <button type="submit" class="btn btn-primary">update_blog</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
