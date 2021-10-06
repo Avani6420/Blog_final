@@ -90,3 +90,92 @@ def register(request):
     context['sub'] = sub
     return render(request, 'reg.html', {'sub': sub})
 # Create your views here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django.shortcuts import render, redirect
+from .models import Article, Tag, Article_Tag
+
+
+def display_article(request):
+    data = Article.objects.all()
+    tags = Tag.objects.all()
+    context={
+        'data' : data,
+        'tags' : tags
+    }
+    return render(request, 'index.html', context)
+
+def add_article(request):
+    if request.method == 'POST':
+        if request.POST.get('Title') and request.POST.get('txtarea'):
+            article_obj = Article()
+            article_obj.Title = request.POST.get('Title')
+            article_obj.Content = request.POST.get('txtarea')
+            article_obj.Image = request.POST.get('Image')
+            obj2 = Tag()
+            obj2.name = request.POST.get('Tag')
+            article_obj.save()
+            obj2.save()
+            return render(request, 'article.html')
+    else:
+        return render(request, 'article.html')
+
+def tag_opration(request):
+    result= Article_Tag.objects.all()
+    if result.request.method == 'POST':
+        for ch in result:
+            ch.result.tag()
+
+
+def get_articles(request):
+    ...
+    ...
+    result = []
+    articles = Articles.all()
+    for article in articles:
+        # Get tags of each article one by one
+        tags = ArticleTag.find_from_db(article).values("tag__name")
+
+        article_dict = {
+            "article": article.name,
+            ...
+            ...
+            "tags": tags
+        }
+        result.push(article_dict)
+
+    print(result)
+    return response(result)
+
+
+    def create_article(request):
+    ...
+    ...
+    article = article_form.save()
+
+    # Get tag value from the POST data.
+    # POST key is the name attribute of the tag element.
+    tags_val = request.POST[""]
+    tags = [split tags_val by comma]
+
+    for tag_val in tags:
+        tag = Tag.find_from_db(tag_val)
+        if tag is None:
+            # Use create method to insert data
+            tag = Tag.create()
+
+        # Use tag and article object to insert relation entry in ArticleTag table.
+        ArticleTag.create()
+
+
